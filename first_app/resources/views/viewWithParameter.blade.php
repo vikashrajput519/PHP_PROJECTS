@@ -1,0 +1,1 @@
+<h1>This is view which display input parameter and parameter is : <span style="color:yellowgreen;">{{ $valueWeCanKeenAnyNameHere }}</span></h1>
