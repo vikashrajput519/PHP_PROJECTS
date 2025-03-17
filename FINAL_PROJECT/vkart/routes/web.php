@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuthManagerController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-}) -> name('home');
+// Route::get('/', function () {
+//     return view('home');
+// }) -> name('home');
+
+Route::get('/', [HomeController::class, 'home']) -> name('home');
 
 Route::get('login', [AuthManagerController::class, 'login']) -> name('login');
 Route::post('login', [AuthManagerController::class, 'loginPost']) -> name('login');
