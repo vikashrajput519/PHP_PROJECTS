@@ -6,6 +6,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 60px;
             /* Centers cards in the row */
             gap: 15px;
             /* Space between cards */
@@ -81,25 +82,20 @@
 @endsection
 
 @section('content')
-    <div class="content-height">
-        <div class="container">
-            <div class="product-container">
-                @foreach ($products as $product)
-                    <div class="product-card">
-                        <img src="{{ $product -> image}}"
-                            alt="{{ $product->title }}">
-                        <div class="product-info">
-                            <span>{{ $product->title }}</span>
-                        </div>
-                        <div class="product-actions">
-                            <a href="" class="add-to-cart">Add to Cart</a>
-                            {{-- {{ route('cart.add', $product->id) }} --}}
-                            <a href="" class="buy-now">Buy</a>
-                            {{-- {{ route('buy.now', $product->id) }} --}}
-                        </div>
-                    </div>
-                @endforeach
+    <div class="product-container">
+        @foreach ($products as $product)
+            <div class="product-card">
+                <img src="{{ $product->image }}" alt="{{ $product->title }}">
+                <div class="product-info">
+                    <span>{{ $product->title }}</span>
+                </div>
+                <div class="product-actions">
+                    <a href="" class="add-to-cart">Add to Cart</a>
+                    {{-- {{ route('cart.add', $product->id) }} --}}
+                    <a href="" class="buy-now">Buy</a>
+                    {{-- {{ route('buy.now', $product->id) }} --}}
+                </div>
             </div>
-        </div>
+        @endforeach
     </div>
 @endsection

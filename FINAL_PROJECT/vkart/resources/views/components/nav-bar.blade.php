@@ -17,14 +17,13 @@
         height: 47px;
     }
 
-    /* Ensure content is not hidden behind navbar */
-    .content-height {
-        margin-top: 60px;
-        /* Adjust based on navbar height */
+    .nav-item {
+        margin-right: 1px;
     }
+    
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ 'assets/logo/V-Cart.png' }}" alt="V-Cart" width="30" height="24"
                 class="d-inline-block align-text-top">

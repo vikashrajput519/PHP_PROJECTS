@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <x-nav-bar></x-nav-bar>
+        <x-nav-bar></x-nav-bar>  
         @yield('content')
     </div>
 
