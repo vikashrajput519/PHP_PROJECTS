@@ -25,7 +25,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ 'assets/logo/V-Cart.png' }}" alt="V-Cart" width="30" height="24"
+            <img src="{{ asset('assets/logo/V-Cart.png') }}" alt="V-Cart" width="30" height="24"
                 class="d-inline-block align-text-top">
             V-Cart
         </a>

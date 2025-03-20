@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthManagerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,5 @@ Route::get('logout', [AuthManagerController::class, 'logout']) -> name('logout')
 
 Route::get('register', [AuthManagerController::class, 'register']) -> name('register');
 Route::post('register', [AuthManagerController::class, 'registerPost']) -> name('register');
+
+Route::get('product/details/{productId}', [ProductController::class, 'getProductById'])->name('product.details');

@@ -1,11 +1,6 @@
 @extends('components/layout')
 @section('style')
     <style>
-        /* Full height to center content */
-        .full-height {
-            min-height: 80vh;
-        }
-
         /* Card styling */
         .login-box {
             max-width: 400px;
@@ -15,6 +10,7 @@
             background: white;
             box-shadow: 0 0 10px brown;
             text-align: center;
+            margin-top: 70px;
         }
 
         /* Logo styling */
@@ -26,7 +22,7 @@
 @endsection
 
 @section('content')
-    <div class="row justify-content-center align-items-center full-height">
+    <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="login-box">
 

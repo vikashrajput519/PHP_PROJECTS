@@ -11,7 +11,7 @@
             background: white;
             box-shadow: 0 0 10px brown;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 70px;
         }
 
         .logo-img {
@@ -34,9 +34,8 @@
                     @csrf
 
                     <div class="mb-3">
-                        <input type="text" placeholder="Name" name="name" id="name" class="form-control"
-                            required>
-                        
+                        <input type="text" placeholder="Name" name="name" id="name" class="form-control" required>
+
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -60,9 +59,9 @@
                         @enderror
                     </div>
 
-                    @if(session() -> has('error'))
+                    @if (session()->has('error'))
                         <div class="alert alert-danger">
-                            {{ session("error")}}
+                            {{ session('error') }}
                         </div>
                     @endif
 
