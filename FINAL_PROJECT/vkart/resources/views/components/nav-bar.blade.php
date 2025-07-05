@@ -20,6 +20,16 @@
     .nav-item {
         margin-right: 1px;
     }
+
+    .badge {
+        font-size: .65em;
+        margin-top: 7px;
+    }
+
+    .start-100 {
+    left: 90% !important;
+    }
+
     
 </style>
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -55,8 +65,16 @@
                 @endauth
 
                 <li class="nav-item">
-                    <a class="btn btn-primary d-flex align-items-center gap-1" href="#"><i
-                            class="fas fa-cart-shopping"></i>Cart</a>
+                    <a class="btn btn-primary d-flex align-items-center gap-1 position-relative" href="#">
+                        <i class="fas fa-cart-shopping"></i> Cart
+
+                        @if ($cartCount > 0)
+                            <span id="cart-count-badge"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $cartCount }}
+                            </span>
+                        @endif
+                    </a>
                 </li>
                 @guest
                     <li class="nav-item">

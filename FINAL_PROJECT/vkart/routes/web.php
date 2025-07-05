@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthManagerController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Auth\AuthManager;
@@ -21,3 +22,6 @@ Route::get('register', [AuthManagerController::class, 'register']) -> name('regi
 Route::post('register', [AuthManagerController::class, 'registerPost']) -> name('register');
 
 Route::get('product/details/{productId}', [ProductController::class, 'getProductById'])->name('product.details');
+
+Route::post('cart/add', [CartController::class, 'addToCart']) -> name('cart.add');
+Route::post('cart/udate', [CartController::class, 'updateCart']) -> name('cart.update');

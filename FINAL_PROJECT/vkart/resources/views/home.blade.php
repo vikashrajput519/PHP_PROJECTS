@@ -108,8 +108,43 @@
         }
 
         .main-card-link {
-            text-decoration: none; 
+            text-decoration: none;
             color: inherit;
+        }
+
+
+
+
+
+
+        .cart-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-controls button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 3px 5px;
+            font-size: 14px;
+            border-radius: 30%;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .cart-controls button:hover {
+            background-color: #e68900;
+        }
+
+        .cart-count {
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 20px;
+            color: white;
+            text-align: center;
+            display: inline-block;
         }
     </style>
 @endsection
@@ -135,15 +170,100 @@
                 </a>
 
                 <div class="product-actions">
-                    {{-- {{ route('cart.add', $product->id) }} --}}
-                    <a href="" class="add-to-cart">Add to Cart</a>
+                    <div id="cart-buttons-{{ $product->id }}">
+                        @php
+                            // $quantity = isset($cart[$product->id]) ? $cart[$product->id]['quantity'] : 0;
+                            $quantity = isset($product->quantity) ? $product->quantity : 0;
+                            !empty($product->quantity) ? $product->quantity : 0;
+                        @endphp
+
+                        @if ($quantity > 0)
+                            <div class="cart-controls">
+                                <button onclick="updateCart({{ $product->id }}, 'decrement')">−</button>
+                                <span id="cart-count-{{ $product->id }}" class="cart-count">{{ $quantity }}</span>
+                                <button onclick="updateCart({{ $product->id }}, 'increment')">+</button>
+                            </div>
+                        @else
+                            <a href="javascript:void(0);" onclick="addToCart({{ $product->id }})" class="add-to-cart">Add
+                                to Cart</a>
+                        @endif
+                    </div>
                     <a href="" class="buy-now">Buy</a>
-                    {{-- {{ route('buy.now', $product->id) }} --}}
                 </div>
             </div>
         @endforeach
     </div>
     <div>
-        {{ $products -> links() }}
+        {{ $products->links() }}
     </div>
+@endsection
+@section('script')
+    <script>
+        function addToCart(productId) {
+            @if (!auth()->check())
+
+                window.location.href = "{{ route('login') }}";
+            @else
+                fetch('{{ route('cart.add') }}', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            productId: productId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            document.getElementById('cart-buttons-' + productId).innerHTML = `
+                    <div class="cart-controls">
+                        <button onclick="updateCart(${productId}, 'decrement')">-</button>
+                        <span id="cart-count-${productId}" class="cart-count">${data.quantity}</span>
+                        <button onclick="updateCart(${productId}, 'increment')">+</button>
+                    </div>`
+                            // Refresh the page to update cart count in navbar
+                            setTimeout(function() {
+                                location.reload(); // Refreshes the page
+                            }, 400); // Delay to ensure the update completes
+                        }
+                    });
+            @endif
+        }
+
+        function updateCart(productId, action) {
+            fetch('{{ route('cart.update') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        action: action
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        if (data.quantity > 0) {
+                            document.getElementById('cart-count-' + productId).innerText = data.quantity;
+                            // Refresh the page to update cart count in navbar
+                            setTimeout(function() {
+                                location.reload(); // Refreshes the page
+                            }, 400); // Delay to ensure the update completes
+                        } else {
+                            document.getElementById('cart-buttons-' + productId).innerHTML = `
+                        <a href="javascript:void(0);" onclick="addToCart(${productId})" class="add-to-cart">Add to Cart</a>
+                    `;
+                            // Refresh the page to update cart count in navbar
+                            setTimeout(function() {
+                                location.reload(); // Refreshes the page
+                            }, 400); // Delay to ensure the update completes
+                        }
+                    }
+                });
+        }
+    </script>
 @endsection

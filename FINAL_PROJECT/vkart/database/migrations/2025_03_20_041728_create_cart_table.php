@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->bigIncrements('cartId'); // Primary key (auto-increment)
             $table->foreignId('userId')->constrained('users')->onDelete('cascade');
             $table->foreignId('productId')->constrained('products')->onDelete('cascade'); // ✅ Renamed correctly
